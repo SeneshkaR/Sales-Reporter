@@ -1,6 +1,6 @@
 package model;
 
-public class ProductSale {
+public class Product {
 
     private final String productId;
     private final String productName;
@@ -8,7 +8,7 @@ public class ProductSale {
     private final int quantitySold;
     private final double unitPrice;
 
-    public ProductSale(String productId, String productName, String category, int quantitySold, double unitPrice) {
+    public Product(String productId, String productName, String category, int quantitySold, double unitPrice) {
         this.productId = productId;
         this.productName = productName;
         this.category = category;
@@ -34,5 +34,15 @@ public class ProductSale {
 
     public double getUnitPrice() {
         return unitPrice;
+    }
+    
+    public double calculateRevenue() {
+        return quantitySold * unitPrice;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s %s %s %d $%.2f", 
+            productId, productName, category, quantitySold, calculateRevenue());
     }
 }

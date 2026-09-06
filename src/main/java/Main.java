@@ -1,10 +1,10 @@
-import model.ProductSale;
+import model.Product;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ProductSale sale = new ProductSale(
+        Product sale = new Product(
             "P001",
             "Wireless Mouse",
             "Electronics",
