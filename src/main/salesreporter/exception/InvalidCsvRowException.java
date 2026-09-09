@@ -1,4 +1,4 @@
-package com.kelaniya.salesreporter.exception;
+package salesreporter.exception;
 
 public class InvalidCsvRowException extends SalesReportException {
     public InvalidCsvRowException(int lineNumber, String rawLine, String reason) {
