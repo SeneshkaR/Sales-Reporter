@@ -1,4 +1,4 @@
-package salesreporter.exception;
+package exception;
 
 public class SalesReportException extends RuntimeException {
     public SalesReportException(String message) { super(message); }
