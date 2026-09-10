@@ -1,4 +1,4 @@
-package model;
+package salesreporter.model;
 
 public class Product {
 

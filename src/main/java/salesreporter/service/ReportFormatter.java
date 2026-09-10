@@ -1,7 +1,7 @@
-package service;
+package salesreporter.service;
 
-import model.Product;
-import model.SalesSummary;
+import salesreporter.model.Product;
+import salesreporter.model.SalesSummary;
 
 import java.util.Map;
 

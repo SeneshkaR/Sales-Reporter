@@ -1,6 +1,6 @@
-package service;
-import model.Product;
-import model.SalesSummary;
+package salesreporter.service;
+import salesreporter.model.Product;
+import salesreporter.model.SalesSummary;
 
 import java.util.HashMap;
 import java.util.List;

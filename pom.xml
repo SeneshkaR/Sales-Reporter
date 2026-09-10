@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.kelaniya.salesreporter.SalesReporter</mainClass>
+                            <mainClass>salesreporter.SalesReporter</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

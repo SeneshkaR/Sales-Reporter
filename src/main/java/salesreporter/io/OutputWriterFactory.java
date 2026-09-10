@@ -1,7 +1,7 @@
-package io;
+package salesreporter.io;
 
-import CliArguments;
-import exception.InvalidArgumentException;
+import salesreporter.CliArguments;
+import salesreporter.exception.InvalidArgumentException;
 
 public final class OutputWriterFactory {
 

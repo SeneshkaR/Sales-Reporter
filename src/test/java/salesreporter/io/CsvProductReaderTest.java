@@ -145,6 +145,27 @@ class CsvProductReaderTest {
         assertEquals("Gadgets", products.get(0).getCategory());
     }
     
+    @Test
+    void testNoHeaderPreservesFirstProduct() throws IOException {
+        File file = createTempCsv("P001, Mouse, Electronics, 12, 25.50\nP002, Pen, Stationery, 100, 0.50\n");
+        List<Product> products = new CsvProductReader(file.getAbsolutePath()).readProducts();
+        assertEquals(2, products.size());
+        assertEquals("P001", products.get(0).getProductId());
+    }
+
+    @Test
+    void testHeaderAfterBlankLine() throws IOException {
+        File file = createTempCsv("\nproduct_id,product_name,category,quantity_sold,unit_price\nP001,Mouse,Electronics,12,25.50\n");
+        assertEquals(1, new CsvProductReader(file.getAbsolutePath()).readProducts().size());
+    }
+
+    @Test
+    void testMissingFirstRowColumnIsRejected() throws IOException {
+        File file = createTempCsv("P001,Mouse,Electronics,12,\n");
+        assertThrows(InvalidCsvRowException.class,
+            () -> new CsvProductReader(file.getAbsolutePath()).readProducts());
+    }
+
     private File createTempCsv(String content) throws IOException {
         File file = tempDir.resolve("test.csv").toFile();
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {

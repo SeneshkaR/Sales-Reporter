@@ -28,14 +28,10 @@ public class CsvProductReader implements ProductReader {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             int lineNumber = 0;
+            boolean firstRecord = true;
             
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                
-                // Skip header row
-                if (lineNumber == 1) {
-                    continue;
-                }
                 
                 // Skip empty lines
                 line = line.trim();
@@ -43,6 +39,12 @@ public class CsvProductReader implements ProductReader {
                     continue;
                 }
                 
+                if (firstRecord) {
+                    firstRecord = false;
+                    if (line.split(",", -1)[0].trim().equalsIgnoreCase("product_id")) {
+                        continue;
+                    }
+                }
                 Product product = parseLine(line, lineNumber);
                 products.add(product);
             }
@@ -52,13 +54,18 @@ public class CsvProductReader implements ProductReader {
     }
     
     private Product parseLine(String line, int lineNumber) throws InvalidCsvRowException {
-        String[] parts = line.split(",");
+        String[] parts = line.split(",", -1);
         
-        if (parts.length < 5) {
-            throw new InvalidCsvRowException(lineNumber, 
+        if (parts.length != 5) {
+            throw new InvalidCsvRowException(lineNumber, line, 
                 "Expected 5 columns but found " + parts.length);
         }
         
+        for (String part : parts) {
+            if (part.trim().isEmpty()) {
+                throw new InvalidCsvRowException(lineNumber, line, "Columns must not be empty");
+            }
+        }
         try {
             String productId = parts[0].trim();
             String productName = parts[1].trim();
@@ -68,7 +75,7 @@ public class CsvProductReader implements ProductReader {
             
             return new Product(productId, productName, category, quantitySold, unitPrice);
         } catch (NumberFormatException e) {
-            throw new InvalidCsvRowException(lineNumber, 
+            throw new InvalidCsvRowException(lineNumber, line, 
                 "Invalid numeric value: " + e.getMessage());
         }
     }

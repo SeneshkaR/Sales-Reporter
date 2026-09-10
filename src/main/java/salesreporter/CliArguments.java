@@ -1,4 +1,6 @@
-import exception.InvalidArgumentException;
+package salesreporter;
+
+import salesreporter.exception.InvalidArgumentException;
 
 public final class CliArguments {
 

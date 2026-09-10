@@ -1,11 +1,14 @@
-import exception.SalesReportException;
-import io.CsvProductReader;
-import io.OutputWriter;
-import io.ProductReader;
-import model.Product;
-import model.SalesSummary;
-import service.ReportFormatter;
-import service.SalesSummaryCalculator;
+package salesreporter;
+
+import salesreporter.exception.SalesReportException;
+import salesreporter.io.CsvProductReader;
+import salesreporter.io.OutputWriter;
+import salesreporter.io.OutputWriterFactory;
+import salesreporter.io.ProductReader;
+import salesreporter.model.Product;
+import salesreporter.model.SalesSummary;
+import salesreporter.service.ReportFormatter;
+import salesreporter.service.SalesSummaryCalculator;
 
 import java.util.List;
 
@@ -15,8 +18,8 @@ public class SalesReporter {
         try {
             CliArguments cliArgs = CliArguments.parse(args);
 
-            ProductReader reader = new CsvProductReader();
-            List<Product> products = reader.readProducts(cliArgs.getCsvFilePath());
+            ProductReader reader = new CsvProductReader(cliArgs.getCsvFilePath());
+            List<Product> products = reader.readProducts();
 
             SalesSummaryCalculator calculator = new SalesSummaryCalculator();
             SalesSummary summary = calculator.calculate(products);
